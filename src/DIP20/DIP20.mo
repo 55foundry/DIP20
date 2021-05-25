@@ -69,7 +69,7 @@ actor class ERC20(_name : Text, _symbol : Text, _decimals : Nat) {
     // ...
   };
 
-  private func _mint(to : Principal, tokenId : Nat, uri : Text) : () {
+  private func _mint(account : Principal, amount : Nat, uri : Text) : () {
     // ...
   };
   
