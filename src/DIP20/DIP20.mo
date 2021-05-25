@@ -38,14 +38,6 @@ actor class ERC20(_name : Text, _symbol : Text, _decimals : Nat) {
     return balances.get(p);
   };
 
-  private func _mint(to : Principal, tokenId : Nat, uri : Text) : () {
-    // ...
-  };
-
-  private func _burn(tokenId : Nat) {
-    // ...
-  };
-
   public shared(msg) func approve(to : Principal, tokenId : T.TokenId) : async () {
     // ...
   };
@@ -55,6 +47,20 @@ actor class ERC20(_name : Text, _symbol : Text, _decimals : Nat) {
   };
 
   public shared(msg) func mint(uri : Text) : async Nat {
+    // ...
+  };
+
+  // Private functions ...
+
+  private func _mint(to : Principal, tokenId : Nat, uri : Text) : () {
+    // ...
+  };
+
+  private func _burn(tokenId : Nat) {
+    // ...
+  };
+
+  private func _transfer(from : Principal, to : Principal, tokenId : Nat) : () {
     // ...
   };
 };
