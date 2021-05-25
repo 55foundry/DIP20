@@ -1,21 +1,8 @@
 {
   "canisters": {
     "DIP20": {
-      "main": "src/DIP20/main.mo",
+      "main": "src/DIP20/DIP20.mo",
       "type": "motoko"
-    },
-    "DIP20_assets": {
-      "dependencies": [
-        "DIP20"
-      ],
-      "frontend": {
-        "entrypoint": "src/DIP20_assets/src/index.html"
-      },
-      "source": [
-        "src/DIP20_assets/assets",
-        "dist/DIP20_assets/"
-      ],
-      "type": "assets"
     }
   },
   "defaults": {
