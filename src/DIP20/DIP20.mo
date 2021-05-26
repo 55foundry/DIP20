@@ -122,6 +122,8 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
     //check that sender has at least token amount
     let balance : ?Nat = balances.get(sender);
     let recipientBalance: ?Nat = balances.get(recipient);
+    D.print(debug_show(balance));
+    D.print(debug_show(recipientBalance));
 
     switch balance{
       case null{ //sender doesn't exist
@@ -132,12 +134,16 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
         let allowances : ?[(T.TokenAddress, Nat)] = approvals.get(sender);
         var foundAllowance = _findAllowance(sender, msg.caller);
 
+        D.print(debug_show("foundAllowance"));
+        D.print(debug_show(foundAllowance));
+
+
         switch (foundAllowance){
           case null{
             return false;
           };
           case (?foundAllowance){
-            if (balance >= foundAllowance){
+            if (foundAllowance >= tokenAmount and balance >= foundAllowance){
               balances.put(sender, balance - tokenAmount);
               switch recipientBalance {
                 case null {
@@ -175,7 +181,16 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
   };
 
   public shared(msg) func approve(spender : T.TokenAddress, amount : Nat) : async Bool {
+    if(msg.caller == spender){
+      //cant allocate to yourself
+      D.print(debug_show("cant allocate to yourself"));
+      return false;
+    };
     let balance : ?Nat = balances.get(msg.caller);
+    D.print(debug_show("caller"));
+    D.print(debug_show(msg.caller));
+    D.print(debug_show("balance"));
+    D.print(debug_show(balance));
     switch balance {
       case null{
         return false;
@@ -189,7 +204,37 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
               return true;
             };
             case (?allowances){
-              approvals.put(msg.caller, Array.append(allowances,Array.make((spender, amount))));
+              var foundAllowanceSum : Nat = 0;
+              D.print(debug_show("allowances"));
+              D.print(debug_show(allowances));
+              for ((targetRecipient, allowance) in allowances.vals()){
+                D.print(debug_show("targetRecipient"));
+                D.print(debug_show(targetRecipient));
+                D.print(debug_show("allowance"));
+                D.print(debug_show(allowance));
+                if(targetRecipient != spender){
+                  foundAllowanceSum += allowance;
+                } else {
+                  D.print(debug_show("skipping"));
+                  D.print(debug_show(spender));
+                };
+              };
+              D.print(debug_show("foundAllowanceSum"));
+              D.print(debug_show(foundAllowanceSum));
+              if(balance >= foundAllowanceSum + amount){
+                var newAllowances : [(T.TokenAddress, Nat)] = Array.filter<(T.TokenAddress, Nat)>(allowances, func (item : (T.TokenAddress, Nat)){
+                  return item.0 != spender;
+                });
+
+                newAllowances := Array.append(newAllowances, Array.make((spender, amount)));
+
+
+                approvals.put(msg.caller, newAllowances);
+              } else {
+                D.print(debug_show("Too Many Allowances"));
+                return false;
+              };
+              return true;
             };
           };
 
