@@ -1,6 +1,9 @@
 clean:
 	@rm -rf ./dist/ || true
 
+demo:
+	@./demo.sh
+
 install:
 	@dfx canister create --all
 	@dfx build

@@ -17,6 +17,13 @@ shared(msg) actor class WasabiRouter(): async T.Router {
         recipient: T.TokenAddress,
         deadline: Nat
     ) : async [Nat64] {
+        // Should call an external source/oracle of some type to get the amounts
+        // amounts = {Actor.rate(amountIn)}
+        //
+        // assert(amounts[0] >= amountOutMin)
+        
+        // path[0].transferFrom(msg.sender, recipient, amountOutMin)
+
         return [0, 0];
     };
 

@@ -6,15 +6,12 @@ echo PATH = $PATH
 echo vessel @ `which vessel`
 
 dfx start --clean --background
-
-
 dfx identity use alice
 
 ALICE_PUBLIC_KEY=$( \
     dfx identity get-principal \
         | awk -F '"' '{printf $0}' \
 )
-
 echo $ALICE_PUBLIC_KEY
 
 dfx identity use bob
@@ -22,8 +19,8 @@ BOB_PUBLIC_KEY=$( \
     dfx identity get-principal \
         | awk -F '"' '{printf $0}' \
 )
-
 echo $BOB_PUBLIC_KEY
+
 dfx identity use dan
 DAN_PUBLIC_KEY=$( \
     dfx identity get-principal \
@@ -33,8 +30,7 @@ echo $DAN_PUBLIC_KEY
 
 dfx identity use alice
 dfx deploy DIP20 --no-wallet --argument '("cool coin", "cc", 4)'
-
-
+dfx deploy WasabiRouter --no-wallet
 
 echo
 echo == Initial token balances for Alice and Bob.
