@@ -9,8 +9,6 @@ import D "mo:base/Debug";
 
 import T "Types";
 
-//type TokenAddress = T.TokenAddress; //just to make code cleaner
-
 shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat): async T.DIP20 {
   // mapping (address => uint256) private _balances;
   stable let owner = msg.caller;
@@ -18,17 +16,11 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
   stable var balancesEntries : [(T.TokenAddress, Nat)] = Array.make((owner, _totalSupply));
   let balances : HashMap.HashMap<T.TokenAddress, Nat> = HashMap.fromIter<T.TokenAddress, Nat>(balancesEntries.vals(), 10, Principal.equal, Principal.hash);
 
-
-
   // mapping (address => mapping (address => uint256)) private _allowances;
   stable var approvalEntries : [(T.TokenAddress, [(T.TokenAddress, Nat)])] = [];
   let approvals : HashMap.HashMap<T.TokenAddress, [(T.TokenAddress, Nat)]> = HashMap.fromIter<T.TokenAddress, [(T.TokenAddress, Nat)]>(approvalEntries.vals(), 10, Principal.equal, Principal.hash);
 
-  // uint256 private _totalSupply;
-
-
   //if we don't have any balances yet, lets give them to the owner
-
 
   public query func name() : async Text {
     return _name;
@@ -52,8 +44,6 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
   public func getowner() : async T.TokenAddress {
     return owner;
   };
-
-
 
   public shared(msg) func transfer(recipient : Principal, amount : Nat) : async Bool {
     D.print(debug_show(msg));
@@ -116,8 +106,6 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
     };
   };
 
-
-
   public shared(msg) func transferFrom(sender : T.TokenAddress, recipient : T.TokenAddress, tokenAmount : Nat) : async Bool {
     //check that sender has at least token amount
     let balance : ?Nat = balances.get(sender);
@@ -174,7 +162,6 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
       };
     };
   };
-
 
   public query(msg)  func allowance(owner : T.TokenAddress, spender : T.TokenAddress) : async ?Nat {
     return _findAllowance(owner, spender);
@@ -245,9 +232,4 @@ shared(msg) actor class CoolCoin(_name : Text, _symbol : Text, _decimals : Nat):
     };
     return false;
   };
-
-
-
-
-
 };

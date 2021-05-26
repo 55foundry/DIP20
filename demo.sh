@@ -32,7 +32,7 @@ DAN_PUBLIC_KEY=$( \
 echo $DAN_PUBLIC_KEY
 
 dfx identity use alice
-dfx deploy DIP20 --no-wallet --argument '("cool coin","cc",4)'
+dfx deploy DIP20 --no-wallet --argument '("cool coin", "cc", 4)'
 
 
 
