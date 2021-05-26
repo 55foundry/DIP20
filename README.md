@@ -18,3 +18,23 @@ cd DIP20/
 dfx help
 dfx config --help
 ```
+
+alice
+
+7jv5o-gfzdg-axu56-hsh7g-ocldj-5w76l-niqwc-y4wk4-b2tbh-wxxgf-xae
+
+bob
+
+2xfbh-2kl3t-zjqah-cxkrg-2zq5u-rid2q-sf2i6-bqxs2-2qxri-l5z4b-jae
+
+
+dan
+
+u7ooi-75urc-dvlgd-do3ho-yejni-yduqc-ltxw6-vvvmp-p3k6a-k6hdq-wae
+
+
+
+first transfer
+
+dfx canister call DIP20 transfer '(principal "2xfbh-2kl3t-zjqah-cxkrg-2zq5u-rid2q-sf2i6-bqxs2-2qxri-l5z4b-jae", 42)'
+
