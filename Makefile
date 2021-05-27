@@ -4,6 +4,9 @@ clean:
 demo:
 	@./demo.sh
 
+swap:
+	@./swap.sh
+
 install:
 	@dfx canister create --all
 	@dfx build

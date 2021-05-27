@@ -4,6 +4,14 @@
       "main": "src/DIP20/DIP20.mo",
       "type": "motoko"
     },
+    "COOLCOIN": {
+      "main": "src/DIP20/DIP20.mo",
+      "type": "motoko"
+    },
+    "HOTCOIN": {
+      "main": "src/DIP20/DIP20.mo",
+      "type": "motoko"
+    },
     "WasabiRouter": {
       "main": "src/Wasabi/Router.mo",
       "type": "motoko"
